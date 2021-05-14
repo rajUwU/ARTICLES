@@ -1,11 +1,5 @@
 # COMPLETE GUIDE TO LINKED LIST
 
-Created: May 12, 2021
-Created by: Rajat Chauhan
-References: https://www.tutorialspoint.com/data_structures_algorithms/linked_list_program_in_c.htm#:~:text=A%20linked%20list%20is%20a,used%20data%20structure%20after%20array. https://www.geeksforgeeks.org/data-structures/linked-list/#singlyLinkedList https://www.geeksforgeeks.org/linked-list-set-1-introduction/ https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
-Status: InProgress
-Tags: Article
-
 > The following article will completely encapsulate the core concepts around Linked List. Some implementation's been performed as well on a C compiler.
 
 Before we jump right into Linked List we must first need to understand some fundamental concepts:

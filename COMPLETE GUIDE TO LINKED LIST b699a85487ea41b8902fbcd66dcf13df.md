@@ -1,5 +1,11 @@
 # COMPLETE GUIDE TO LINKED LIST
 
+Created: May 12, 2021
+Created by: Rajat Chauhan
+References: https://www.tutorialspoint.com/data_structures_algorithms/linked_list_program_in_c.htm#:~:text=A%20linked%20list%20is%20a,used%20data%20structure%20after%20array. https://www.geeksforgeeks.org/data-structures/linked-list/#singlyLinkedList https://www.geeksforgeeks.org/linked-list-set-1-introduction/ https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
+Status: InProgress
+Tags: Article
+
 > The following article will completely encapsulate the core concepts around Linked List. Some implementation's been performed as well on a C compiler.
 
 Before we jump right into Linked List we must first need to understand some fundamental concepts:
@@ -26,8 +32,9 @@ This will be easily understood when we perform this in a program. The functions 
 
 - [Creating a Linked List]()
 - [Traversing a Linked List / Displaying a linked list]()
-- Inserting a link at the first location
+- [Inserting a link at the first location]()
 - Inserting a link at the last location
+- Inserting  a link after a node.
 - Deleting the link at the first location
 - Deleting the link at the last location
 - Sorting a Linked List
@@ -278,4 +285,115 @@ void main() {
 
     display();
 }
+```
+
+# Inserting a link at the first location
+
+What we mean by this title is that we are going to add another link at the start of an existing linked list .
+
+In our previous work we had a linked list: [ 1 2 3 ], what if we want to add an element at the start of the linked list to form? As in lets say we add 5 at the front: [ 5 1 2 3]. To get such a result, let us make an another function called `insertAtStart()` 
+
+![COMPLETE%20GUIDE%20TO%20LINKED%20LIST%20b699a85487ea41b8902fbcd66dcf13df/Screenshot_from_2021-05-15_14.07.49.png](COMPLETE%20GUIDE%20TO%20LINKED%20LIST%20b699a85487ea41b8902fbcd66dcf13df/Screenshot_from_2021-05-15_14.07.49.png)
+
+As shown from the figure above, we create a new node in the memory and instead of modifying any other node or replacing them we just point the head to the node we just created.
+
+The `head` pointer now points to the node with data 5 making it the first node in the linked list.
+
+Remember! These nodes are not ordered in the memory, they are spread randomly and the way we access them is by using their addresses.
+
+Now lets start with the function!
+
+```c
+void insertAtStart(int data) {
+	struct Node *link = (struct Node*)malloc(sizeof(struct Node));
+	link->data = data;
+
+	link->next = head;
+	head = link;
+}
+```
+
+In the first line in our function, we allocate memory to the new "link":
+
+### struct Node *link = (struct Node*)malloc(sizeof(struct Node));
+
+After that we put the data given by the user into the node:
+
+### link->next = head;
+
+Now we know we want this node to be first in the list, so naturally this node's next value must point to our current first node:
+
+### link->next = head;
+
+As you know head pointer has the reference to the first node in our linked list, so by changing our new link's next to head will led the link be the first node.
+
+Then we simply change the head pointer to point at the new link we created:
+
+### head = link;
+
+And we're done with this function too! Here's the full code:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+struct Node *second = NULL;
+struct Node *third = NULL;
+
+void display() {
+    struct Node *ptr = head;
+    printf("\n[");
+
+    while (ptr != NULL)
+    {
+        printf(" %d ", ptr->data);
+        ptr = ptr->next;
+    }
+
+    printf(" ]\n");
+}
+
+void insertAtStart(int data) {
+	struct Node *link = (struct Node*)malloc(sizeof(struct Node));
+	link->data = data;
+
+	link->next = head;
+	head = link;
+}
+
+void main() {
+
+    head = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = NULL;
+
+    display();
+
+    insertAtStart(5);
+
+    display();
+}
+```
+
+OUTPUT:
+
+```c
+[ 1 2 3 ]
+
+[ 5 1 2 3 ]
 ```

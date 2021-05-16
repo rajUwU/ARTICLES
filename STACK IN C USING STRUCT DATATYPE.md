@@ -23,7 +23,7 @@ We first import the standard input/output library required for C compilation:-
 
 We declare 3 variable, 
 
-`MAXSIZ` to set the maximum amount of items (size of stack).
+`MAXSIZE` to set the maximum amount of items (size of stack).
 
 `stack` which is a struct object which will comprise of:
 

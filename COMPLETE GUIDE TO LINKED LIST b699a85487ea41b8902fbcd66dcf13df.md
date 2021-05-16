@@ -1,6 +1,10 @@
 # COMPLETE GUIDE TO LINKED LIST
 
-
+Created: May 12, 2021
+Created by: Rajat Chauhan
+References: https://www.tutorialspoint.com/data_structures_algorithms/linked_list_program_in_c.htm#:~:text=A%20linked%20list%20is%20a,used%20data%20structure%20after%20array. https://www.geeksforgeeks.org/data-structures/linked-list/#singlyLinkedList https://www.geeksforgeeks.org/linked-list-set-1-introduction/ https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
+Status: InProgress
+Tags: Article
 
 > The following article will completely encapsulate the core concepts around Linked List. Some implementation's been performed as well on a C compiler.
 
@@ -30,7 +34,7 @@ This will be easily understood when we perform this in a program. The functions 
 - [Traversing a Linked List / Displaying a linked list]()
 - [Inserting a link at the first location]()
 - [Inserting a link at the last location]()
-- Inserting  a link after a node.
+- [Inserting a link after a given node.]()
 - Deleting the link at the first location
 - Deleting the link at the last location
 - Sorting a Linked List
@@ -526,4 +530,130 @@ OUTPUT:-
 [ 1 2 3 ]
 
 [ 1 2 3 5 ]
+```
+
+# Inserting a link after a given node
+
+We create a new function that takes a given node and data for the new node from the user. This new node is inserted just after the given node. 
+
+If we consider [ 1 2 3 ] as our linked list then if the user provides 1 as the given node and 5 as the data for the new node, the linked list after insertion would be like: [ 1 5 2 3 ].
+
+![COMPLETE%20GUIDE%20TO%20LINKED%20LIST%20b699a85487ea41b8902fbcd66dcf13df/Screenshot_from_2021-05-17_03.08.23.png](COMPLETE%20GUIDE%20TO%20LINKED%20LIST%20b699a85487ea41b8902fbcd66dcf13df/Screenshot_from_2021-05-17_03.08.23.png)
+
+As you can see from the above diagram, we point the given node to our newly created node. Then we point our new node to the next node in the linked list.
+
+Lets call this function `insertAtGiven()`:
+
+```c
+void insertAtGiven(struct Node *prev_node, int data)
+{
+    if (prev_node == NULL)
+    {
+        printf("the given previous node cannot be NULL");
+        return;
+    }
+
+    struct Node *link = (struct Node *)malloc(sizeof(struct Node));
+
+    link->data = data;
+    link->next = prev_node->next;
+    prev_node->next = link;
+}
+```
+
+The if statement checks if the given node is NULL or not, as we need a proper node. The if statement prints an error.
+
+### if (prev_node == NULL)
+    {
+        printf("the given previous node cannot be NULL");
+        return;
+    }
+
+We allocate the new node `link` memory:
+
+### struct Node *link = (struct Node *)malloc(sizeof(struct Node));
+
+We insert the given data into link and point it to the location at which the previous node was pointing at.
+
+We then point the previous node to the new one.
+
+### link->data = link;
+    link->next = prev_node->next;
+    prev_node->next = link;
+
+And we are done!
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+struct Node *second = NULL;
+struct Node *third = NULL;
+
+void display()
+{
+    struct Node *ptr = head;
+    printf("\n[");
+
+    while (ptr != NULL)
+    {
+        printf(" %d ", ptr->data);
+        ptr = ptr->next;
+    }
+
+    printf(" ]\n");
+}
+
+void insertAtGiven(struct Node *prev_node, int data)
+{
+    if (prev_node == NULL)
+    {
+        printf("ERROR! The entered node is NULL");
+        return;
+    }
+
+    struct Node *link = (struct Node *)malloc(sizeof(struct Node));
+
+    link->data = data;
+    link->next = prev_node->next;
+    prev_node->next = link;
+}
+
+void main()
+{
+
+    head = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = NULL;
+
+    display();
+
+    insertAtGiven(head, 5);
+
+    display();
+}
+```
+
+OUTPUT:-
+
+```c
+[ 1 2 3 ]
+
+[ 1 5 2 3 ]
 ```
